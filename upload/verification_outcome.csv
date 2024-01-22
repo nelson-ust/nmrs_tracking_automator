@@ -1,0 +1,7 @@
+PatientID,Indication for Client Verification,Tracking Date,Patient Care in Facility Discontinued ?,Date of Termination(if yes),Date returned to care(if valid & retained),VisitDate,ReasonForTracking,Who_Attempted,ModeOfCommunication,Person_contacted,Reason_for_Defaulting,Reason for Discontinuation,Referred for
+FCT14202969,3&5,24/12/2023,No,,29/12/2023,2023-10-10,Other,Godwin Mbassey,Mobile Phone,Patient,Others(Specify),,Adherence Counseling
+ABI00900335,"2,3,4&5",15/12/2023,No,,20/12/2023,2023-10-10,Other,Godwin Mbassey,Mobile Phone,Patient,Others(Specify),,Adherence Counseling
+ABI00902722,Consistently had drug pickup by proxy without viral load sample collection for two quarters,24/12/2023,No,,29/12/2023,2023-10-10,Other,Godwin Mbassey,Mobile Phone,Patient,Others(Specify),,Adherence Counseling
+ABI00900349,1,28/12/2023,No,,02/01/2024,2023-10-10,Other,Godwin Mbassey,Mobile Phone,Patient,Others(Specify),,Adherence Counseling
+ABI00900533,2&4,29/12/2023,No,,03/01/2024,2023-10-10,Other,Godwin Mbassey,Mobile Phone,Patient,Others(Specify),,Adherence Counseling
+ABI00900705,"2,3&4",01/12/2023,No,,06/12/2023,2023-10-10,Other,Godwin Mbassey,Mobile Phone,Patient,Others(Specify),,Adherence Counseling

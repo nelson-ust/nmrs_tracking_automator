@@ -1,0 +1,6 @@
+pymysql==1.1.0
+mysql-connector==2.2.9
+tqdm==4.66.1
+logging==0.4.9.6
+pandas==2.0.0
+openpyxl==3.1.2
