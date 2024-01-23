@@ -8,9 +8,10 @@ from tqdm import tqdm
 from repositories import visit_repository, encounter_repository, obs_repository
 from helpers import database as db
 import os
-os#from helpers.data_cleaning import clean_data
+import helpers.data_cleaning as data_clean
+#from helpers.data_cleaning import clean_data
 
-
+data_clean.main()
 #clean_data()
 # To read patients_id and visit date from CSV to form a dictionary of keyword arguments (**kwargs)
 def read_patient_ids_from_csv(csv_file): 
