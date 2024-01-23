@@ -5,7 +5,6 @@ This NMRS Clienty Tracking Automator Project is designed to Automate the process
 
 
 
-
 ## Prerequisites
 
 - Python 3.8 or higher
