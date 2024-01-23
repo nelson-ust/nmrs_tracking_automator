@@ -87,7 +87,7 @@ def read_excel_file(file_path):
         print(f"Error reading Excel file: {e}")
         return None
 
-def set_column_values(df):
+def set_column_values(df:pd.DataFrame)->pd.DataFrame:
     # Additional columns
     df['VisitDate'] = pd.to_datetime(input("Type in your Visit Date (dd/mm/YYYY): "), format="%d/%m/%Y")
     df['ReasonForTracking'] = 'Other'

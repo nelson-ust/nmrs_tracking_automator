@@ -10,7 +10,7 @@ from helpers import database as db
 from helpers.data_cleaning import clean_data
 
 
-clean_data
+#clean_data()
 # To read patients_id and visit date from CSV to form a dictionary of keyword arguments (**kwargs)
 def read_patient_ids_from_csv(csv_file): 
     patient_ids = {}

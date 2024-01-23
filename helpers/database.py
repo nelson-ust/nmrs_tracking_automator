@@ -34,6 +34,8 @@ def get_facility_name_from_db(connection: sql.MySQLConnection) -> str:
         print("MySQL Error:", e)
         return False
 
+
+'''
 # Establish a connection to the database
 connection = connect_to_database()
 
@@ -47,3 +49,4 @@ if connection:
     connection.close()
 else:
     print("Unable to connect to the database.")
+'''

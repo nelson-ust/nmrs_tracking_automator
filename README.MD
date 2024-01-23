@@ -19,8 +19,8 @@ This NMRS Clienty Tracking Automator Project is designed to Automate the process
 Clone the project repository from GitHub to your local machine:
 
 ```bash
-git clone https://github.com/nelson-ust/shopify_fastapi_mini_project.git
-cd shopify_fastapi_mini_project
+git clone https://github.com/nelson-ust/nmrs_tracking_automator.git
+cd nmrs_tracking_automator
 ```
 
 ### Step 2: Set Up a Virtual Environment
