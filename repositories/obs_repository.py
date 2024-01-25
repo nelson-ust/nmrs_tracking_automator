@@ -1,16 +1,12 @@
 from mysql.connector import Error
-import mysql.connector as sql
 import datetime
 from datetime import datetime
 from models.obs import Obs 
 from typing import List
+import uuid
 from helpers.uuid_generator import generate_uuid
 
-
-#connection =connect_to_database()
-
-# To create the obs data mapping each attribute of obs_info instance (ObsInfo) with a value and append them to form list.
-def tracking_obs_list(connection:sql.MySQLConnection, ids:dict) -> List[Obs]:
+def tracking_obs_list(connection:str, ids:dict) -> List[Obs]:
     obs_info_list = []
     cursor = connection.cursor(dictionary = True)
 
@@ -157,6 +153,8 @@ def tracking_obs_list(connection:sql.MySQLConnection, ids:dict) -> List[Obs]:
                         if concept_id == 165775: #Return Date
                             obs_info.value_datetime = (datetime.strptime(return_date, "%d/%m/%Y")).strftime("%Y-%m-%d %H:%M:%S")
                             break 
+
+
                         if concept_id == 165459:
                             obs_info.value_text = who_attempt
                             break
@@ -246,7 +244,7 @@ def get_concept_definition(concept_name):
         print("Function Error:", e)
 
 
-def last_appt_date(connection:sql.MySQLConnection, pepfar_id:str) -> datetime:
+def last_appt_date(connection:str, pepfar_id:str) -> datetime:
     try:
         cursor = connection.cursor(dictionary = True)
 

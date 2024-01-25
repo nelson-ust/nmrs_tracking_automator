@@ -4,8 +4,8 @@ class EnounterProvider:
         self.encounter_id = 0
         self.provider_id = 1
         self.encounter_role_id = 1
-        self.creator  = 1
-        self.date_created= ''
+        self.creator = 1
+        self.date_created = ''
         self.changed_by = None
         self.date_changed = None
         self.voided = 0

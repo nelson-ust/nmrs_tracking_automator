@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Upload File</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+<body>
+
+    <section class="mt-5">
+        <h1 class="h1 p-0 text-center text-danger">NMRS Client Verification/Tracking Outcome Processor </h1>
+        <div class="container bg-secondary p-5">
+            <form class="form" action="/upload-excel/" enctype="multipart/form-data" method="post" onsubmit="return validateForm();">
+    
+                <label class="label text-light h5" for="file">Select only .xlsx files</label>
+                <input class="form-control" type="file" name="file" id="fileInput"><br>
+                <!--
+                <label class="label text-light h5" for="visit_date">Visit Date:</label>
+                <input class="form-control" type="text" name="visit_date" id="dateInput" placeholder="dd/mm/yyyy"><br>
+      
+                -->
+                
+                <label class="label text-light h5" for="who_attempted">Name of the Facility Tracker:</label> 
+                <input class="form-control" type="text" name="who_attempted"><br>
+    
+                <div class="d-flex justify-content-between">
+                    <input class="btn btn-lg btn-success" type="submit" value="Submit">
+                    <input class="btn btn-lg btn-danger" title="clear entire form inputs" type="reset" value="Clear">
+                </div>
+            </form>
+        </div>
+    </section>
+    
+
+    <script src="./js/boostrap.js"></script>
+    <script src="./js/upload_form.js"></script>
+</body>
+
+</html>

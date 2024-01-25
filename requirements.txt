@@ -1,7 +1,13 @@
-pymysql==1.1.0
+fastapi== 0.65.0
+pymysql== 1.1.0
 mysql-connector==2.2.9
 tqdm==4.66.1
 logging==0.4.9.6
 pandas==2.0.0
 openpyxl==3.1.2
 mysql-connector-python==8.3.0
+uvicorn==0.13.4
+pandas==2.0.0
+python-multipart==0.0.6
+aiofiles==23.2.1
+

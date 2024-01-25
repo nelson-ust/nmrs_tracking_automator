@@ -1,14 +1,17 @@
 from mysql.connector import Error
-import mysql.connector as sql
 import datetime
 from datetime import datetime
 from models.visit import Visit
 from typing import List
-from helpers.uuid_generator import generate_uuid
+import uuid
+
+
+def generate_uuid():
+    return str(uuid.uuid4())
 
 
 # To create the visit data mapping each attribute of visit_info instance of (VisitInfo Class) with a value and append them to form list.
-def visit_list(connection:sql.MySQLConnection, ids:dict) -> List[Visit]:
+def visit_list(connection:str, ids:dict) -> List[Visit]:
     visit_list = []
     cursor = connection.cursor(dictionary=True)
     try:
@@ -36,7 +39,7 @@ def visit_list(connection:sql.MySQLConnection, ids:dict) -> List[Visit]:
     return visit_list
 
 
-def insert_visit_data(connection:sql.MySQLConnection, visit_info:list): # To insert the visit data into the visit table using the commit method.
+def insert_visit_data(connection:str, visit_info:list): # To insert the visit data into the visit table using the commit method.
     try:
         cursor = connection.cursor()
         cursor.execute("""SET FOREIGN_KEY_CHECKS = 0""")

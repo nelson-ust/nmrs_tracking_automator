@@ -1,11 +1,15 @@
 from mysql.connector import Error
-import mysql.connector as sql
 from models.encounter import Encounter
 from typing import List
-from helpers.uuid_generator import generate_uuid
+import uuid
 
-# Create the encounter data mapping each attribute of enct_info instance (Encounter) with a value and append them to form list.
-def tracking_encounter_list(connection:sql.MySQLConnection, id:str) -> List:
+
+def generate_uuid():
+    return str(uuid.uuid4())
+
+
+# To create the encounter data mapping each attribute of enct_info instance (Encounter) with a value and append them to form list.
+def tracking_encounter_list(connection:str, id:str) -> List:
     enct_list = []
     cursor = connection.cursor(dictionary=True)
     try:
@@ -39,7 +43,7 @@ def tracking_encounter_list(connection:sql.MySQLConnection, id:str) -> List:
 
 
 # To insert the encounter data into the encounter table using the commit method.
-def insert_encounter_data(connection:sql.MySQLConnection, encounter:list): 
+def insert_encounter_data(connection:str, encounter:list): 
     try:
         cursor = connection.cursor()
 

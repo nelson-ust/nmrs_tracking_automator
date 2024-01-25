@@ -1,11 +1,11 @@
 from mysql.connector import Error
-import mysql.connector as sql
 from models.encounter_provider import EnounterProvider
 from typing import List
 
 
+
 # To create provider for the Encounter Provider table
-def encounter_provider(connection:sql.MySQLConnection, ids:str) -> List[EnounterProvider] :
+def encounter_provider(connection:str, ids:str) -> List[EnounterProvider] :
     provider_info_list = []
     try:
         for patient_id in ids:
@@ -31,7 +31,7 @@ def encounter_provider(connection:sql.MySQLConnection, ids:str) -> List[Enounter
 
 
 # To insert the provider data into the Encounter Provider table using the commit method.
-def insert_encounter_provider_data(connection:sql.MySQLConnection, enct_provider_info:list):
+def insert_encounter_provider_data(connection:str, enct_provider_info:list):
     try:
         cursor = connection.cursor()
         cursor.execute(""" INSERT INTO encounter_provider (encounter_id, provider_id, encounter_role_id, creator, 
