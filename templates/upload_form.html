@@ -2,32 +2,36 @@
 <html>
 
 <head>
-    <title>Upload File</title>
-    <!-- <link rel="stylesheet" href="./static/css/bootstrap.css"> -->
+    <title>UI Upload File</title>
 
+    <!-- link for local styles -->
     <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/upload_form.css">
+
+    <!-- link to css static folder when deployed for use -->
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css//upload_form.css">
 </head>
 
 <body>
 
-    <section class="m-5">
-        <h1 class="h1 p-0 text-center text-danger">NMRS Client Verification/Tracking Outcome Processor </h1>
-        <div class="d-flex justify-content-between bg-secondary p-3">
-            <div class="container border p-3">
-                <h4>Data Cleanup</h3>
+    <section class="m-5 centered-container">
+        <!-- Header Section -->
+        <h1 class="h1 p-0 text-center text-danger">NMRS Client Verification/Tracking Outcome Processor</h1>
+        <!-- Form Section - Data Cleanup -->
+        <div class="d-flex justify-content-between bg-secondary p-3 rounded">
+            <div class="container border p-3 mx-2 rounded">
+                <h4 class="text-center text-dark text-decoration-underline mb-3">Data Cleanup</h4>
                 <form class="form" action="/process-file/" enctype="multipart/form-data" method="post" onsubmit="return validateForm();">
-    
+                    <!-- File Input for Cleanup -->
                     <label class="label text-light h5" for="file">Select only .xlsx files</label>
                     <input class="form-control" type="file" name="file" id="fileInput"><br>
-                    <!--
-                    <label class="label text-light h5" for="visit_date">Visit Date:</label>
-                    <input class="form-control" type="text" name="visit_date" id="dateInput" placeholder="dd/mm/yyyy"><br>
-          
-                    -->
-                    
-                    <label class="label text-light h5" for="who_attempted">Name of the Facility Tracker:</label> 
+
+                    <!-- Additional Input for Facility Tracker Name -->
+                    <label class="label text-light h5" for="who_attempted">Name of the Facility Tracker:</label>
                     <input class="form-control" type="text" name="who_attempted"><br>
-        
+
+                    <!-- Form Actions -->
                     <div class="d-flex justify-content-between">
                         <input class="btn btn-lg btn-success" type="submit" value="Clean Data">
                         <input class="btn btn-lg btn-danger" title="clear entire form inputs" type="reset" value="Clear">
@@ -35,32 +39,36 @@
                 </form>
             </div>
 
-            <div class="container border p-3">
-                <h4 class="text-center text-dark">Data injestion</h3>
+            <!-- Form Section - Data Ingestion -->
+            <div class="container border p-3 mx-2 rounded">
+                <h4 class="text-center text-dark text-decoration-underline mb-3">Data Ingestion</h4>
                 <form class="form" onchange="return ingestForm()">
-    
+                    <!-- File Input for Ingestion -->
                     <label class="label text-light h5" for="ingestFile">Select only .csv files</label>
                     <input class="form-control" type="file" name="ingestFile" id="ingestFile"><br>
-                    <!--
-                    <label class="label text-light h5" for="visit_date">Visit Date:</label>
-                    <input class="form-control" type="text" name="visit_date" id="dateInput" placeholder="dd/mm/yyyy"><br>
-          
-                    -->
                     
-        
-                    <div class="d-flex justify-content-between mt-5">
-                        <input class="mt-5 btn btn-lg btn-danger" title="clear entire form inputs" type="reset" value="Clear">
-                        <input class="mt-5 btn btn-lg btn-success" type="submit" value="Ingest Data To DB">
+                    <!-- Display File Path for CSV -->
+                    <label class="label text-light h5" for="ingestFilePath">File Path for CSV:</label>
+                    <input class="form-control shadow-none" type="text" id="ingestFilePath" readonly="true" name="ingestFilePath"><br>
+
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between">
+                        <input class="btn btn-lg btn-danger" title="clear entire form inputs" type="reset" value="Clear">
+                        <input class="btn btn-lg btn-success" type="submit" value="Ingest Data To DB">
                     </div>
                 </form>
-            </div> 
-            
+            </div>
+
         </div>
     </section>
-    
 
-    <script src="./js/boostrap.js"></script>
+    <!-- Script Section for live server -->
+    <script src="./js/bootstrap.js"></script>
     <script src="./js/upload_form.js"></script>
+
+    <!-- Script Section for static folder when deployed locally -->
+    <script src="../static/js/boostrap.js"></script>
+    <script src="../static/js/upload_form.js"></script>
 </body>
 
 </html>

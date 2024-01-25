@@ -1,44 +1,57 @@
-// validate form for data cleanup
+// Function to validate form for data cleanup
 function validateForm() {
+    // Regular expression for allowed file extensions
+    const allowedExtensions = /\.xlsx$/i;
 
-    var allowedExtensions = /(\.xlsx)$/i;
-    var datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-    var fileInput = document.getElementById('fileInput');
-    var dateInput = document.getElementById('dateInput');
+    // Get file input element
+    const fileInput = document.getElementById('fileInput');
 
-    if (!fileInput.value.match(allowedExtensions)) {
+    // Check if the selected file has a valid extension
+    if (!allowedExtensions.test(fileInput.value)) {
         alert('Please select a valid XLSX file.');
         return false;
     }
 
-    if (!dateInput.value.match(datePattern)) {
-        alert('Please enter a valid date in the format dd/mm/yyyy.');
-        return false;
-    }
-
+    // Return true if all validations pass
     return true;
 }
 
-// validate form for file ingestion
+// Function to validate form for file ingestion
 function ingestForm() {
-    
-    // defining variables
-    var allowedExtensionsCSV = /(\.csv)$/i;
-    var ingestFile = document.getElementById('ingestFile');
-    
-    var allowedFileName = /(\verification_outcome.csv)$/i;
+    // Regular expressions for allowed file extensions and specific file name pattern
+    const allowedExtensionsCSV = /\.csv$/i;
+    const allowedFileName = /verification_outcome\.csv$/i;
 
-    if (!ingestFile.value.match(allowedExtensionsCSV)) {
-        alert('only valid CSV files are allowed.');
-        ingestFile.value = "";
+    // Get file input element for ingestion and file path display element
+    const ingestFile = document.getElementById('ingestFile');
+    const ingestFilePath = document.getElementById('ingestFilePath');
+
+    // Check if the selected file has a valid CSV extension
+    if (!allowedExtensionsCSV.test(ingestFile.value)) {
+        alert('Only valid CSV files are allowed.');
+        clearFormInputs(ingestFile, ingestFilePath);
         return false;
     }
 
-    if (!ingestFile.value.match(allowedFileName)) {
-        alert('only file name with verification_outcome is accepted.')
-        ingestFile.value = "";;
+    // Check if the file name follows the specified pattern
+    if (!allowedFileName.test(ingestFile.value)) {
+        alert('Only file name with verification_outcome is accepted.');
+        clearFormInputs(ingestFile, ingestFilePath);
         return false;
     }
 
+    // Display the file path (excluding the full path for security reasons)
+    ingestFilePath.value = ingestFile.value;
+
+    console.log(ingestFilePath.value);
+
+    // Return true if all validations pass
     return true;
 }
+
+// Function to clear form inputs
+function clearFormInputs(fileInput, filePathInput) {
+    fileInput.value = ""; // Clear the file input field
+    filePathInput.value = ""; // Clear the file path display
+}
+
