@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>UI Upload File</title>
     <!-- link for local styles -->
@@ -9,15 +10,17 @@
     <link rel="stylesheet" href="../static/css/bootstrap.css">
     <link rel="stylesheet" href="../static/css/upload_form.css">
 </head>
+
 <body>
     <section class="m-5 centered-container">
         <!-- Header Section -->
         <h1 class="h1 p-0 text-center text-danger">NMRS Client Verification/Tracking Outcome Processor</h1>
         <div class="d-flex justify-content-between bg-secondary p-3 rounded">
+
             <!-- Form Section - Data Cleanup -->
             <div class="container border p-3 mx-2 rounded">
                 <h4 class="text-center text-dark text-decoration-underline mb-3">Data Cleanup</h4>
-                <form class="form" action="/process-file/" enctype="multipart/form-data" method="post">
+                <form class="form" action="/process-file/" enctype="multipart/form-data" method="post" onsubmit="return validateForm();">
                     <label class="label text-light h5" for="file">Select only .xlsx files</label>
                     <input class="form-control" type="file" name="file" id="fileInput"><br>
                     <label class="label text-light h5" for="who_attempted">Name of the Facility Tracker:</label>
@@ -28,10 +31,11 @@
                     </div>
                 </form>
             </div>
+
             <!-- Form Section - Data Ingestion -->
             <div class="container border p-3 mx-2 rounded">
                 <h4 class="text-center text-dark text-decoration-underline mb-3">Data Ingestion</h4>
-                <form class="form" action="/ingest-data/" enctype="multipart/form-data" method="post">
+                <form class="form" action="/ingest-data/" enctype="multipart/form-data" method="post" onchange="return ingestForm()">
                     <label class="label text-light h5" for="ingestFile">Select only .csv files</label>
                     <input class="form-control" type="file" name="ingestFile" id="ingestFile"><br>
                     <div class="d-flex justify-content-between">
@@ -42,6 +46,7 @@
             </div>
         </div>
     </section>
+
     <!-- Script Section for live server -->
     <script src="./js/bootstrap.js"></script>
     <script src="./js/upload_form.js"></script>
@@ -49,4 +54,5 @@
     <script src="../static/js/bootstrap.js"></script>
     <script src="../static/js/upload_form.js"></script>
 </body>
+
 </html>

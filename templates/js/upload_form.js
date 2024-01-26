@@ -15,43 +15,39 @@ function validateForm() {
     // Return true if all validations pass
     return true;
 }
-
 // Function to validate form for file ingestion
 function ingestForm() {
-    // Regular expressions for allowed file extensions and specific file name pattern
+    // Regular expressions for allowed file extensions
     const allowedExtensionsCSV = /\.csv$/i;
-    const allowedFileName = /verification_outcome\.csv$/i;
 
-    // Get file input element for ingestion and file path display element
+    // Get file input element for ingestion
     const ingestFile = document.getElementById('ingestFile');
-    const ingestFilePath = document.getElementById('ingestFilePath');
 
     // Check if the selected file has a valid CSV extension
     if (!allowedExtensionsCSV.test(ingestFile.value)) {
         alert('Only valid CSV files are allowed.');
-        clearFormInputs(ingestFile, ingestFilePath);
+        clearFormInputs(ingestFile);
         return false;
     }
 
-    // Check if the file name follows the specified pattern
-    if (!allowedFileName.test(ingestFile.value)) {
-        alert('Only file name with verification_outcome is accepted.');
-        clearFormInputs(ingestFile, ingestFilePath);
-        return false;
-    }
+    // Read the content of the selected file
+    var file = ingestFile.files[0];
+    var reader = new FileReader();
+    
+    reader.onload = function (e) {
+        var content = e.target.result;
+        console.log(content);
+        alert(content);
+    };
 
-    // Display the file path (excluding the full path for security reasons)
-    ingestFilePath.value = ingestFile.value;
+    // Read the file as text
+    reader.readAsText(file);
 
-    console.log(ingestFilePath.value);
-
-    // Return true if all validations pass
-    return true;
+    // Prevent the form from submitting (you may remove this line if you want the form to submit)
+    return false;
 }
 
 // Function to clear form inputs
-function clearFormInputs(fileInput, filePathInput) {
+function clearFormInputs(fileInput) {
     fileInput.value = ""; // Clear the file input field
-    filePathInput.value = ""; // Clear the file path display
 }
-
