@@ -1,0 +1,10 @@
+fastapi
+pymysql
+mysql-connector
+tqdm
+pandas
+openpyxl
+mysql-connector-python
+uvicorn
+python-multipart
+aiofiles
