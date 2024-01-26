@@ -18,7 +18,7 @@ def visit_list(connection:str, ids:dict) -> List[Visit]:
         for patient_id in ids:
            
             query = """SELECT patient_id
-                        FROM patient_identifier WHERE identifier_type = 4 and identifier = %s"""
+                        FROM patient_identifier WHERE identifier_type = 4 and identifier = %s LIMIT 1"""
             
             cursor.execute(query, (patient_id,))
            
