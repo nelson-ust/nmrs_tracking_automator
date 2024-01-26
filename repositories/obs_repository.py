@@ -102,6 +102,7 @@ def tracking_obs_list(connection:str, ids:dict) -> List[Obs]:
                                     obs_info_list.append(obs_info)
                             else:
                                 obs_info.value_coded = get_concept_definition(verify_indication)
+                                obs_info_list.append(obs_info)
                             break
 
                         if concept_id == 165463:
