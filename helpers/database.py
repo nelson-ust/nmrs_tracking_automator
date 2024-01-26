@@ -1,26 +1,3 @@
-'''
-import mysql.connector as sql
-from mysql.connector import Error
-
-
-def connect_to_database(): 
-    "To create a connection string to the database using the correct credentials."
-    try:
-        connection = sql.connect(
-            host='localhost',
-            user='root',
-            password='Alvin@2016',
-            database='amachara_db'
-        )
-        if connection.is_connected():
-            return connection
-        else:
-            print("Connection failed.")
-            return None
-    except Error as e:
-        print("Error:", e)
-        return None
-'''
 import mysql.connector as sql
 from mysql.connector import Error
 

@@ -8,3 +8,4 @@ mysql-connector-python
 uvicorn
 python-multipart
 aiofiles
+jinja2

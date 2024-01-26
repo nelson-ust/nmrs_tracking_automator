@@ -26,8 +26,13 @@ cd nmrs_tracking_automator
 ### Step 2: Set Up a Virtual Environment
 Creating a virtual environment is recommended to manage your Python dependencies:
 
+On Windows: 
 ```bash
 python -m venv venv
+```
+On MacOS and Linux:
+```bash
+python3 -m venv venv
 ```
 
 Activate the virtual environment:
