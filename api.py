@@ -463,7 +463,7 @@ def clean_and_process_data(df: pd.DataFrame, who_attempted: str) -> pd.DataFrame
     # Renaming columns and handling transformations
     df_processed.rename(columns={
         'Unique ID': 'PatientID',
-        'Triggers Interpretation': 'Indication for Client Verification',
+        'Triggers': 'Indication for Client Verification',
         'Tracking Attempt 1(date)': 'Tracking Date',
         'Valid or Invalid': 'Patient Care in Facility Discontinued ?'
     }, inplace=True)

@@ -65,7 +65,7 @@ def clean_and_export_data(file_path: str) -> None:
         return
 
     # Filter out relevant columns
-    verification_data = verification_list[['Unique ID', 'Triggers Interpretation', 'Tracking Attempt 1(date)', 'Valid or Invalid', 'Date of Termination(if yes)', 'Date returned to care(if valid & retained)']] \
+    verification_data = verification_list[['Unique ID', 'Triggers', 'Tracking Attempt 1(date)', 'Valid or Invalid', 'Date of Termination(if yes)', 'Date returned to care(if valid & retained)']] \
         .rename(columns={'Unique ID': 'PatientID', 'Triggers Interpretation': 'Indication for Client Verification', 'Tracking Attempt 1(date)': 'Tracking Date', 'Valid or Invalid': 'Patient Care in Facility Discontinued ?'})
 
     verification_data = set_column_values(verification_data)
