@@ -1,3 +1,5 @@
+<!--
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,5 +10,19 @@
     <p>Filename: {{ filename }}</p>
     <p>Processed Content:</p>
     <pre>{{ content }}</pre>
+</body>
+</html>
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Processed</title>
+</head>
+<body>
+    <h1>File Processed Successfully</h1>
+    <a href="{{ url_for('download_file', filename=filename) }}">Download Processed File</a>
 </body>
 </html>

@@ -28,10 +28,10 @@ def connect_to_database() -> sql.MySQLConnection:
     """Create a connection to the database using the correct credentials."""
     try:
         connection = sql.connect(
-            host='192.168.1.200',
+            host='192.168.1.198',
             user='admin',
             password='Admin123',
-            database='st_Anthony_aro'
+            database='st_anthony_aro'
         )
         if connection.is_connected():
             return connection

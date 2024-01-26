@@ -4,10 +4,7 @@ from datetime import datetime
 from models.visit import Visit
 from typing import List
 import uuid
-
-
-def generate_uuid():
-    return str(uuid.uuid4())
+from helpers.uuid_generator import generate_uuid
 
 
 # To create the visit data mapping each attribute of visit_info instance of (VisitInfo Class) with a value and append them to form list.
@@ -18,7 +15,7 @@ def visit_list(connection:str, ids:dict) -> List[Visit]:
         for patient_id in ids:
            
             query = """SELECT patient_id
-                        FROM patient_identifier WHERE identifier_type = 4 and identifier = %s"""
+                        FROM patient_identifier WHERE identifier_type = 4 and identifier = %s LIMIT 1"""
             
             cursor.execute(query, (patient_id,))
            
@@ -37,7 +34,6 @@ def visit_list(connection:str, ids:dict) -> List[Visit]:
         cursor.close()
 
     return visit_list
-
 
 def insert_visit_data(connection:str, visit_info:list): # To insert the visit data into the visit table using the commit method.
     try:

@@ -232,11 +232,133 @@ os.makedirs('upload', exist_ok=True)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse("upload_form.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request})
+
+'''
+@app.post("/ingest-data/")
+async def ingest_data(background_tasks: BackgroundTasks, csv_file_path: str):
+    background_tasks.add_task(ingest_data_into_database, csv_file_path)
+    return {"message": "Data ingestion started"}
+
+
+'''
+
+'''
+@app.post("/ingest-data/")
+async def ingest_data(background_tasks: BackgroundTasks, file: UploadFile = File(...)):
+    # Save the uploaded file temporarily
+    temp_file_path = f"temp_{file.filename}"
+    with open(temp_file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    # Add the task of ingesting data into the background
+    background_tasks.add_task(ingest_data_into_database, temp_file_path)
+
+    # Return a template response indicating the start of data ingestion
+    return templates.TemplateResponse("data_ingestion_started.html", {"request": Request()})
+'''
+
+'''
+@app.post("/ingest-data/")
+async def ingest_data(background_tasks: BackgroundTasks, file: UploadFile = File(...)):
+    try:
+        # Save the uploaded file temporarily
+        temp_file_path = f"temp_{file.filename}"
+        with open(temp_file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        # Add the task of ingesting data into the background
+        background_tasks.add_task(ingest_data_into_database, temp_file_path)
+
+        return {"message": "Data ingestion started"}
+    except Exception as e:
+        # Log the exception
+        print(f"Error occurred: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+'''
+
+@app.post("/ingest-data/")
+async def ingest_data(request: Request, background_tasks: BackgroundTasks, file: UploadFile = File(...)):
+    try:
+        # Save the uploaded file temporarily
+        temp_file_path = f"temp_{file.filename}"
+        with open(temp_file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        # Add the task of ingesting data into the background
+        background_tasks.add_task(ingest_data_into_database, temp_file_path)
+
+        # Render the HTML template
+        return templates.TemplateResponse("data_ingestion_started.html", {"request": request, "message": "Data ingestion started"})
+    except Exception as e:
+        # Log the exception
+        print(f"Error occurred: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/process-file/")
+async def process_file(file: UploadFile = File(...), who_attempted: str = Form(...)):
+    # Validate if the uploaded file is a .xlsx file
+    if not file.filename.endswith('.xlsx'):
+        raise HTTPException(status_code=400, detail="Only .xlsx files are accepted.")
+
+    temp_file_path = f"temp_{file.filename}"
+    with open(temp_file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        with warnings.catch_warnings(record=True):
+            warnings.simplefilter("ignore", category=UserWarning)
+            df = pd.read_excel(temp_file_path)
+
+        df = clean_and_process_data(df, who_attempted)
+    except KeyError as e:
+        os.remove(temp_file_path)
+        raise HTTPException(status_code=400, detail=f"Column not found in the file: {e}")
+    except Exception as e:
+        os.remove(temp_file_path)
+        raise HTTPException(status_code=500, detail=f"Error processing the file: {e}")
+
+    output_file_path = os.path.join("upload", "verification_outcome.csv")
+    df.to_csv(output_file_path, index=False)
+    os.remove(temp_file_path)
+    return FileResponse(output_file_path, media_type='application/octet-stream', filename="verification_outcome.csv")
+    #return templates.TemplateResponse("upload_success.html", {"request": Request})
+
+@app.post("/upload-file/")
+async def upload_file(request: Request, file: UploadFile = File(...)):
+    try:
+        # Temporary file path
+        temp_file_path = f"temp_{file.filename}"
+
+        # Save uploaded file to temporary file
+        with open(temp_file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        # Process the file (you can replace this with your specific processing logic)
+        df = pd.read_excel(temp_file_path)  # Assuming Excel file input
+        df_processed = clean_and_process_data(df)  # Process the DataFrame
+
+        # Save processed DataFrame to 'static' directory
+        output_filename = f"processed_{file.filename}".replace('.xlsx', '.csv')
+        output_file_path = os.path.join("static", output_filename)
+        df_processed.to_csv(output_file_path, index=False)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing the file: {str(e)}")
+
+    finally:
+        # Remove temporary file
+        if os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+
+    # Return template response with link to download the processed file
+    return templates.TemplateResponse("download_file.html", {
+        "request": request,
+        "filename": output_filename
+    })
 
 def file_exists(file_path) -> bool:
     return os.path.exists(file_path) and os.path.isfile(file_path)
-
 
 def read_patient_ids_from_csv(csv_file): 
     patient_ids = {}
@@ -333,74 +455,6 @@ def ingest_data_into_database(csv_file: str):
         print("Error during database operation:", e)
     finally:
         connection.close()
-
-@app.post("/ingest-data/")
-async def ingest_data(background_tasks: BackgroundTasks, csv_file_path: str):
-    background_tasks.add_task(ingest_data_into_database, csv_file_path)
-    return {"message": "Data ingestion started"}
-
-
-@app.post("/process-file/")
-async def process_file(file: UploadFile = File(...), who_attempted: str = Form(...)):
-    # Validate if the uploaded file is a .xlsx file
-    if not file.filename.endswith('.xlsx'):
-        raise HTTPException(status_code=400, detail="Only .xlsx files are accepted.")
-
-    temp_file_path = f"temp_{file.filename}"
-    with open(temp_file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-
-    try:
-        with warnings.catch_warnings(record=True):
-            warnings.simplefilter("ignore", category=UserWarning)
-            df = pd.read_excel(temp_file_path)
-
-        df = clean_and_process_data(df, who_attempted)
-    except KeyError as e:
-        os.remove(temp_file_path)
-        raise HTTPException(status_code=400, detail=f"Column not found in the file: {e}")
-    except Exception as e:
-        os.remove(temp_file_path)
-        raise HTTPException(status_code=500, detail=f"Error processing the file: {e}")
-
-    output_file_path = os.path.join("upload", "verification_outcome.csv")
-    df.to_csv(output_file_path, index=False)
-    os.remove(temp_file_path)
-    return FileResponse(output_file_path, media_type='application/octet-stream', filename="verification_outcome.csv")
-
-@app.post("/upload-file/")
-async def upload_file(request: Request, file: UploadFile = File(...)):
-    try:
-        # Temporary file path
-        temp_file_path = f"temp_{file.filename}"
-
-        # Save uploaded file to temporary file
-        with open(temp_file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-
-        # Process the file (you can replace this with your specific processing logic)
-        df = pd.read_excel(temp_file_path)  # Assuming Excel file input
-        df_processed = clean_and_process_data(df)  # Process the DataFrame
-
-        # Save processed DataFrame to 'static' directory
-        output_filename = f"processed_{file.filename}".replace('.xlsx', '.csv')
-        output_file_path = os.path.join("static", output_filename)
-        df_processed.to_csv(output_file_path, index=False)
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing the file: {str(e)}")
-
-    finally:
-        # Remove temporary file
-        if os.path.exists(temp_file_path):
-            os.remove(temp_file_path)
-
-    # Return template response with link to download the processed file
-    return templates.TemplateResponse("download_file.html", {
-        "request": request,
-        "filename": output_filename
-    })
-
 
 def clean_and_process_data(df: pd.DataFrame, who_attempted: str) -> pd.DataFrame:
     # Create a copy of the DataFrame to avoid SettingWithCopyWarning
