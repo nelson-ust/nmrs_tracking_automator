@@ -15,37 +15,55 @@ function validateForm() {
     // Return true if all validations pass
     return true;
 }
+
+
 // Function to validate form for file ingestion
 function ingestForm() {
-    // Regular expressions for allowed file extensions
     const allowedExtensionsCSV = /\.csv$/i;
-
-    // Get file input element for ingestion
     const ingestFile = document.getElementById('ingestFile');
 
-    // Check if the selected file has a valid CSV extension
     if (!allowedExtensionsCSV.test(ingestFile.value)) {
         alert('Only valid CSV files are allowed.');
         clearFormInputs(ingestFile);
         return false;
     }
 
-    // Read the content of the selected file
     var file = ingestFile.files[0];
-    var reader = new FileReader();
-    
-    reader.onload = function (e) {
-        var content = e.target.result;
-        console.log(content);
-        alert(content);
-    };
 
-    // Read the file as text
-    reader.readAsText(file);
+    // Create a FormData object
+    var formData = new FormData();
+    formData.append('file', file);
+
+    // Make a fetch request to the server
+    fetch('/ingest-data/', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => {
+        // Check if the request was successful
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Return the response
+        return response.blob();
+    })
+    .then(blob => {
+        // Create a link element to trigger the download
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'processed_file.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
 
     // Prevent the form from submitting (you may remove this line if you want the form to submit)
     return false;
 }
+
 
 // Function to clear form inputs
 function clearFormInputs(fileInput) {
