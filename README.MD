@@ -1,11 +1,25 @@
 # NMRS CLIENT VERIFICATION/ TRACKING OUTCOME PROCESSOR
 
 ## Project Description
-This Python App is used is an Automation Project Resposible for the processing the Client Verification Tracker Outcome on the EMR. This Project Reads an Excel File, cleans it up output and maps it to the respective concepts on the EMR.
+This Python App is used is an Automation Project Resposible for the processing of the Client Tracker and Verification Outcome on the EMR. This Project Reads an Excel File, cleans it up, outputs and maps it to the respective to the EMR.
 
 
-![User Interface](landing.jpeg)
 
+![Instruction 1](instructions/1_DB_change.png)
+
+![Instruction 2](instructions/2-process_page.png)
+
+![Instruction 3](instructions/3-Process_try_out.png)
+
+![Instruction 4](instructions/4-data_clean.png)
+
+![Instruction 5](instructions/5-download_csv_file.png)
+
+![Instruction 6](instructions/6-Ingest_DATA.png)
+
+![Instruction 7](instructions/7-ingest_tryout.png)
+
+![Instruction 8](instructions/8-ingest-exceute.png)
 ## Prerequisites
 
 - Python 3.8 or higher
@@ -51,7 +65,7 @@ source venv/bin/activate
 Install the required Python packages using pip:
 
 ```bash
-pip install -r requirements.txt
+pip install -r new_requirements.txt
 ```
 ### Step 4: Run the Application
 Start the FastAPI server using Uvicorn:
@@ -60,10 +74,10 @@ Start the FastAPI server using Uvicorn:
 uvicorn api:app --reload
 ```
 ### Step 5: Access the Application
-Open a web browser and navigate to http://localhost:8000. You should see the FastAPI application running.
+Open a web browser and navigate to http://localhost:8000/docs. You should see the Swagger-ui..
 
-Access the API documentation at http://localhost:8000/docs to interact with the API.
+
 
 ## Troubleshooting
 
-If you encounter any issues, ensure you have the correct versions of Python and pip installed.
+If you encounter any issues, ensure you have the correct versions of Python, pip installed, and all the required dependencies also installed using pip.
