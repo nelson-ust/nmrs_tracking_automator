@@ -9,3 +9,4 @@ uvicorn
 python-multipart
 aiofiles
 jinja2
+requests_toolbelt

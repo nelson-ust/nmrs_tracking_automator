@@ -13,7 +13,7 @@ def read_excel_file(file_path):
         print(f"Error reading Excel file: {e}")
         return None
 
-def set_column_values(df: pd.DataFrame) -> pd.DataFrame:
+def set_column_values(df: pd.DataFrame,) -> pd.DataFrame:
     # If 'VisitDate' column already exists and is in the correct format
     '''
     if 'VisitDate' in df.columns and pd.api.types.is_datetime64_any_dtype(df['VisitDate']):
