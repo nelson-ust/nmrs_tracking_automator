@@ -496,7 +496,7 @@ def ingest_data_into_database(csv_file: str, task_id: str):
                 obs_repository.insert_obs_data(connection, observation_info)
 
             # Update tracking group ID if required
-            obs_repository.update_tracking_group_id(connection, [patient_id])
+            obs_repository.update_verification_group_id(connection, [patient_id])
             # Update progress
             ingestion_progress[task_id]['processed'] += 1
 
