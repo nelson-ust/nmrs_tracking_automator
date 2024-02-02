@@ -544,13 +544,14 @@ def clean_and_process_data(df: pd.DataFrame, who_attempted: str) -> pd.DataFrame
 
     # Reorder columns based on the desired index positions
     column_order = [
-        'PatientID', 'VisitDate', 'ReasonForTracking', 'Indication for Client Verification', 'Tracking Date',
+        'FacilityName','PatientID', 'VisitDate', 'ReasonForTracking', 'Indication for Client Verification', 'Tracking Date',
         'Who_Attempted', 'ModeOfCommunication', 'Person_contacted', 'Reason_for_Defaulting',
         'Patient Care in Facility Discontinued ?', 'Reason for Discontinuation',
         'Date of Termination(if yes)', 'Referred for', 'Date returned to care(if valid & retained)','Verification Status'
     ]
     df_processed = df_processed.reindex(columns=column_order)
     return df_processed
+    
 
 
 if __name__ == "__main__":
